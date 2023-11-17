@@ -8,7 +8,8 @@ const blogSchema=new mongoose.Schema({
     subtitle:{
         type:String,
         required:true,
-        unique:true
+        unique:true,
+        
     },
     description:{
         type:String,
