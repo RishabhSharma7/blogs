@@ -1,9 +1,10 @@
 const mongoose=require("mongoose");
+const User=require("../Models/user");
 const blogSchema=new mongoose.Schema({
     title:{
         type:String,
         required:true,
-        unique:true
+        unique:true,
     },
     subtitle:{
         type:String,
@@ -23,9 +24,15 @@ const blogSchema=new mongoose.Schema({
         type:Date,
         default:Date.now()
     },
-    coverImage:{
-        type:String
+    role:{
+        type:String,
+        enum:["viewer","creator"],
+        default:"viewer"
     },
+    createdBy:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref: "User"
+    }
 });
 
 const Blog=mongoose.model('Blog',blogSchema);

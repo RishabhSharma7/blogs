@@ -52,9 +52,10 @@ userSchema.pre('save',async function(next){
     this.confirmpassword=undefined;
     next();
 });
-userSchema.methods.comparePasswordInDb=async function(pswd,pswdDB){
+userSchema.methods.comparePassword= async function(pswd,pswdDB){
     return await bcrypt.compare(pswd,pswdDB);
 }
 
 const User=mongoose.model("User",userSchema);
 module.exports=User;
+

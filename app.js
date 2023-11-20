@@ -16,7 +16,7 @@ mongoose.connect(process.env.CONN_STR,{
 });
 
 app.use("/api/posts",router);
-app.use("/api/users",user);
+app.use("/api/",user);
 const port=9753;
 app.listen(port,()=>{
     console.log("running on port 9753");
