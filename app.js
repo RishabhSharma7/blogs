@@ -15,7 +15,7 @@ mongoose.connect(process.env.CONN_STR,{
     console.log("ERROR OCCURED");
 });
 
-app.use("/api/blogs",router);
+app.use("/api/posts",router);
 app.use("/api/users",user);
 const port=9753;
 app.listen(port,()=>{

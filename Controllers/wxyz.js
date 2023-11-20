@@ -1,14 +1,30 @@
 const CustomError=require("../folder/customerror");
 const Blog=require("../Models/xyzz");
-// const asyncErrorHandler=require("express-async-handler");
+
 const asyncErrorHandler=require("../folder/asyncerrorhandler");
 exports.getAllBlogs=asyncErrorHandler(async(req,res)=>{
-    
-    const allblog = await Blog.find();
+    let query=Blog.find();
+    if(req.query.sort){
+        const sortBy=req.query.sort.split(',').join(' ');
+        query=query.sort(sortBy);
+    }else{
+        query=query.sort('duration');
+    }
+    const page=req.query.page*1 ||1;
+    const limit=req.query.limit*1||3;
+    const skip=(page-1)*limit;
+    query=query.skip(skip).limit(limit);
+    if(req.query.page){
+        const blogss=await Blog.countDocuments();
+        if(skip>=blogss){
+            throw new Error("Page not found");
+        }
+    }
+    const allbllogs=await query;
         res.status(200).json({
            status:"success",
            data:{
-            blog:allblog
+            blog:allbllogs
         }
     });
 })
